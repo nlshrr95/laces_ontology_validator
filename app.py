@@ -174,7 +174,7 @@ WHERE {
 
                     csv = df.to_csv(index=False).encode("utf-8")
                     st.download_button(
-                        label="Download CSV",
+                        label="Download",
                         data=csv,
                         file_name="validation_results.csv",
                         mime="text/csv"
