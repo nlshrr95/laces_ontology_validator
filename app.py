@@ -157,7 +157,7 @@ WHERE {
 
                     rows.append({
                         "Object": str(focus_node) if focus_node else "-",
-                        "Path": str(result_path) if result_path else "-",
+                        "Error detected on": str(result_path) if result_path else "-",
                         "Message": str(message) if message else "-",
                         "Constraint": str(source_constraint).split("#")[-1] if source_constraint else "-"
                     })
