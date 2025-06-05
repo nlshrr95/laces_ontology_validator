@@ -12,7 +12,7 @@ def validate_graph(data_graph, shacl_graph):
         shacl_graph=shacl_graph,
         inference='rdfs',
         abort_on_error=False,
-        meta_shacl=True,
+        meta_shacl=False,
         advanced=True,
         debug=False
     )
