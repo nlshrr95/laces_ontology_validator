@@ -5,7 +5,7 @@ import requests
 import pandas as pd
 from rdflib.namespace import RDF, Namespace
 
-st.set_page_config(page_title="Laces Data Validator", layout="wide")
+st.set_page_config(page_title="Semm Data Validator", layout="wide")
 
 # Custom CSS styling for the app
 st.markdown("""
