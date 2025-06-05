@@ -95,29 +95,32 @@ if st.button("Validate"):
             else:
                 # Prepare SPARQL CONSTRUCT query (no extra indentation/newlines)
                 query = """
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX sh: <http://www.w3.org/ns/shacl#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX otlshape: <http://otl.amsterdam.nl/def/shape/>
 PREFIX otl: <http://otl.amsterdam.nl/def/objecttype/>
-PREFIX eigenschap: <http://otl.amsterdam.nl/def/eigenschap/>
+PREFIX eig: <http://otl.amsterdam.nl/def/eigenschap/>
 
 CONSTRUCT {
   ?shape a sh:NodeShape ;
-         sh:targetClass ?targetClass ;
+         sh:targetClass otl:Brug ;
          sh:property ?property .
-  ?property ?p ?o .
+
+  ?property sh:path ?path ;
+            sh:datatype ?datatype ;
+            sh:minCount ?minCount ;
+            sh:maxCount ?maxCount ;
+            sh:message ?message .
 }
 WHERE {
-  VALUES ?shape {
-    otlshape:BrugShape
-    otlshape:BeheerobjectShape
-  }
+  BIND(<http://otl.amsterdam.nl/def/shape/BrugShape> AS ?shape)
   ?shape a sh:NodeShape ;
-         sh:targetClass ?targetClass ;
+         sh:targetClass otl:Brug ;
          sh:property ?property .
-  ?property ?p ?o .
+
+  OPTIONAL { ?property sh:path ?path }
+  OPTIONAL { ?property sh:datatype ?datatype }
+  OPTIONAL { ?property sh:minCount ?minCount }
+  OPTIONAL { ?property sh:maxCount ?maxCount }
+  OPTIONAL { ?property sh:message ?message }
 }
 """
                 # Request the SPARQL endpoint with the query
@@ -128,6 +131,9 @@ WHERE {
                         "Content-Type": "application/x-www-form-urlencoded"}
                 )
                 response.raise_for_status()
+
+                # Show TTL response for debug
+#                st.text_area("SPARQL TTL Response (debug)", response.text, height=200)
 
                 # Parse the TTL response into the SHACL graph
                 shacl_graph.parse(data=response.text, format="turtle")
