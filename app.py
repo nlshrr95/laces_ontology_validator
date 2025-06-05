@@ -121,12 +121,14 @@ WHERE {
 }
 """
                 # Request the SPARQL endpoint with the query
-                response = requests.get(
+                response = requests.post(
                     sparql_endpoint,
                     params={"query": query},
-                    headers={"Accept": "text/turtle"}
+                    headers={"Accept": "text/turtle",
+                        "Content-Type": "application/x-www-form-urlencoded"}
                 )
                 response.raise_for_status()
+
                 # Parse the TTL response into the SHACL graph
                 shacl_graph.parse(data=response.text, format="turtle")
 
