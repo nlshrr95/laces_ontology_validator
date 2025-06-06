@@ -66,6 +66,33 @@ st.markdown("""
     </div>
 """, unsafe_allow_html=True)
 
+import streamlit as st
+
+# Footer HTML with logo and text
+footer = """
+<style>
+.footer {
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    text-align: right;
+    font-size: 14px;
+    color: gray;
+    z-index: 9999;
+}
+.footer img {
+    height: 26px;
+    vertical-align: middle;
+    margin-left: 5px;
+}
+</style>
+<div class="footer">
+    <img src="https://digigo.laceshub.com/_next/static/media/powered-by-laces_logo.735cdfa0.svg" alt="Logo">
+</div>
+"""
+
+st.markdown(footer, unsafe_allow_html=True)
+
 # Created  two columns in the layout: Left for  SHACL Ontology upload, right for Project Data upload
 col1, col2 = st.columns(2)
 
