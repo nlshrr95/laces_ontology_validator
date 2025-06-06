@@ -73,8 +73,8 @@ footer = """
 <style>
 .footer {
     position: fixed;
-    right: 10px;
-    bottom: 10px;
+    right: 50px;
+    bottom: 80px;
     text-align: right;
     font-size: 14px;
     color: gray;
